@@ -1,27 +1,53 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin" tools:context=".QuizApp">
+    android:paddingBottom="@dimen/activity_vertical_margin" tools:context=".QuizApp"
+    android:orientation="vertical"
+    android:id="@+id/QuizApp"
+    android:background="@drawable/point_interrogation_rouages">
 
-    <TextView android:text="@string/hello_world" android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-
-    <ImageView
-        android:layout_width="wrap_content"
+    <Button
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/imageView"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true" />
+        android:text="@string/play"
+        android:id="@+id/bPlay"
+        android:layout_weight="1"
+        android:clickable="true"
+        android:focusable="true"
+        android:layout_margin="20dp"
+        android:textColor="#ffa2c4f5"
+        android:background="#bb000000"
+        android:textSize="@android:dimen/app_icon_size"
+        android:textStyle="bold" />
 
-    <TextView
-        android:layout_width="wrap_content"
+    <Button
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="New Text"
-        android:id="@+id/textView"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="70dp" />
+        android:text="@string/scores"
+        android:id="@+id/bScores"
+        android:layout_weight="1"
+        android:clickable="true"
+        android:focusable="true"
+        android:layout_margin="20dp"
+        android:textColor="#ffa2c4f5"
+        android:background="#bb000000"
+        android:textSize="@android:dimen/app_icon_size"
+        android:textStyle="bold" />
 
-</RelativeLayout>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/settings"
+        android:id="@+id/bSettings"
+        android:layout_weight="1"
+        android:clickable="true"
+        android:focusable="true"
+        android:layout_margin="20dp"
+        android:textColor="#ffa2c4f5"
+        android:background="#bb000000"
+        android:textSize="@android:dimen/app_icon_size"
+        android:textStyle="bold" />
+
+</LinearLayout>
