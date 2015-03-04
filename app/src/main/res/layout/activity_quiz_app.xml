@@ -14,13 +14,13 @@
         android:text="@string/play"
         android:id="@+id/bPlay"
         android:layout_weight="1"
-        android:clickable="true"
+        android:clickable="false"
         android:focusable="true"
         android:layout_margin="20dp"
         android:textColor="#ffa2c4f5"
         android:background="#bb000000"
         android:textSize="@android:dimen/app_icon_size"
-        android:textStyle="bold" />
+        android:textStyle="bold"/>
 
     <Button
         android:layout_width="match_parent"
