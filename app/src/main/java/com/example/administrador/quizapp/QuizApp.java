@@ -1,6 +1,7 @@
 package com.example.administrador.quizapp;
 
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.ActionBar;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -14,12 +15,13 @@ public class QuizApp extends ActionBarActivity {
         setContentView(R.layout.activity_quiz_app);
     }
 
+    ActionBar actionBar = getSupportActionBar();
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_quiz_app, menu);
-        return true;
+        return super.onCreateOptionsMenu(menu);
     }
 
     @Override
