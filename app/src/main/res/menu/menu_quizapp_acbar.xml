@@ -3,18 +3,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".QuizApp_AcBar">
 
-    <item android:id="@+id/action_search"
-        android:icon="@drawable/ic_launcher"
-        android:title="@string/scores"
-        android:orderInCategory="100"
-        app:showAsAction="always" />
 
-    <item android:id="@+id/action_scores"
-        android:icon="@drawable/ic_launcher"
-        android:title="@string/play"
+    <item android:id="@+id/action_credits"
+        android:icon="@drawable/ic_action_about"
+        android:title="@string/action_credits"
         android:orderInCategory="100"
         app:showAsAction="always" />
     <item android:id="@+id/action_settings"
+        android:icon="@drawable/ic_action_settings"
         android:title="@string/action_settings"
         android:orderInCategory="100"
         app:showAsAction="always" />
