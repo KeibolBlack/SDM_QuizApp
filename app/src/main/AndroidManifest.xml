@@ -16,6 +16,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".QuizApp_AcBar"
+            android:label="@string/title_activity_quiz_app__ac_bar" >
+
+        </activity>
     </application>
 
 </manifest>
