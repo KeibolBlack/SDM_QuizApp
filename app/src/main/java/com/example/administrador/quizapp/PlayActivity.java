@@ -1,5 +1,6 @@
 package com.example.administrador.quizapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
@@ -28,8 +29,8 @@ public class PlayActivity extends ActionBarActivity{
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(play_menu, menu);
 
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.setDisplayHomeAsUpEnabled(true);
+        //ActionBar actionBar = getSupportActionBar();
+        //actionBar.setDisplayHomeAsUpEnabled(true);
 
         return super.onCreateOptionsMenu(menu);
     }
@@ -42,7 +43,12 @@ public class PlayActivity extends ActionBarActivity{
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        switch (id){
+        switch  (item.getItemId())
+        {
+            case R.id.action_settings:
+                // Do  something, like starting an activity, for instance
+                startActivity(new Intent(this, SettingsActivity.class));
+                return true;
             case 1:
                 return true;
             case 2:

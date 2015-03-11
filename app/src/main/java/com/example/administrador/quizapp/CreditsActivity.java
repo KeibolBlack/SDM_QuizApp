@@ -32,8 +32,11 @@ public class CreditsActivity extends ActionBarActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        switch  (item.getItemId())
+        {
+            case R.id.action_settings:
+                // Do  something, like starting an activity, for instance
+                startActivity(new Intent(this, SettingsActivity.class));
         }
 
         return super.onOptionsItemSelected(item);

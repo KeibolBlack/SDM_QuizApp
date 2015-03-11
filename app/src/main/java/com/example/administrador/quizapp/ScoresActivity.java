@@ -1,5 +1,6 @@
 package com.example.administrador.quizapp;
 
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -30,8 +31,10 @@ public class ScoresActivity extends ActionBarActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        switch  (item.getItemId()) {
+            case R.id.action_settings:
+                // Do  something, like starting an activity, for instance
+                startActivity(new Intent(this, SettingsActivity.class));
         }
 
         return super.onOptionsItemSelected(item);

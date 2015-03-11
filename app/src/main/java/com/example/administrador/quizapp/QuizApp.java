@@ -53,8 +53,7 @@ public class QuizApp extends ActionBarActivity {
         // as you specify a parent activity in AndroidManifest.xml.
 
         int id = item.getItemId();
-        switch
-                (item.getItemId())
+        switch (item.getItemId())
         {
             case R.id.action_settings:
                 // Do  something, like starting an activity, for instance
