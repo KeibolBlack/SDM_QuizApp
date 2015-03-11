@@ -21,6 +21,12 @@
             android:label="@string/title_activity_quiz_app__ac_bar" >
 
         </activity>
+        <activity
+            android:name=".PlayActivity"
+            android:label="PlayActivity"
+            android:parentActivityName=".QuizApp">
+        </activity>
+
     </application>
 
 </manifest>
