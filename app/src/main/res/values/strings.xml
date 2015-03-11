@@ -15,5 +15,10 @@
     <string name="action_50_title">50%</string>
     <string name="action_people_title">Publico</string>
     <string name="action_close_title">Cerrar</string>
+    <string name="title_activity_scores">ScoresActivity</string>
+    <string name="title_activity_settings">SettingsActivity</string>
+    <string name="title_activity_credits">CreditsActivity</string>
+
+    <string name="credits_calico">Calico Lubrico</string>
 
 </resources>

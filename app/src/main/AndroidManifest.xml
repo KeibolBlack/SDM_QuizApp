@@ -17,16 +17,34 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".QuizApp_AcBar"
-            android:label="@string/title_activity_quiz_app__ac_bar" >
-
-        </activity>
-        <activity
             android:name=".PlayActivity"
             android:label="PlayActivity"
-            android:parentActivityName=".QuizApp">
+            android:parentActivityName=".QuizApp" >
         </activity>
-
+        <activity
+            android:name=".ScoresActivity"
+            android:label="@string/title_activity_scores"
+            android:parentActivityName=".QuizApp" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.administrador.quizapp.QuizApp" />
+        </activity>
+        <activity
+            android:name=".SettingsActivity"
+            android:label="@string/title_activity_settings"
+            android:parentActivityName=".QuizApp" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.administrador.quizapp.QuizApp" />
+        </activity>
+        <activity
+            android:name=".CreditsActivity"
+            android:label="@string/title_activity_credits"
+            android:parentActivityName=".QuizApp" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.administrador.quizapp.QuizApp" />
+        </activity>
     </application>
 
 </manifest>
