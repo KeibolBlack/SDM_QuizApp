@@ -39,6 +39,12 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.administrador.quizapp.QuizApp" />
         </activity>
+        <activity
+            android:name=".PlayActivity"
+            android:label="PlayActivity"
+            android:parentActivityName=".QuizApp">
+        </activity>
+
     </application>
 
 </manifest>
