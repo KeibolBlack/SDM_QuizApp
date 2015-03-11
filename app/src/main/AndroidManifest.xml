@@ -26,6 +26,11 @@
             android:label="PlayActivity"
             android:parentActivityName=".QuizApp">
         </activity>
+        <activity
+            android:name=".ScoresActivity"
+            android:label="ScoresActivity"
+            android:parentActivityName=".QuizApp">
+        </activity>
 
     </application>
 

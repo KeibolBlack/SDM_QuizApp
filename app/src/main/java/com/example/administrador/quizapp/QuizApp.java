@@ -33,9 +33,9 @@ public class QuizApp extends ActionBarActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        switch	(id) {
+            case 1:
+            case 2:
         }
 
         return super.onOptionsItemSelected(item);
