@@ -7,15 +7,19 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 
-public class QuizApp extends ActionBarActivity {
+public class QuizApp_AcBar extends ActionBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_quiz_app);
+        setContentView(R.layout.activity_quizapp_acbar);
 
         ActionBar actionBar = getActionBar();
-        //actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setIcon(R.drawable.ic_launcher);
+        actionBar.setTitle(R.string.acBar_Title); //Establecer titulo
+        actionBar.setSubtitle(R.string.acBar_Subtitle); //Establecer Subtitulo
+
+        actionBar.setDisplayHomeAsUpEnabled(true);
     }
 
 
@@ -31,7 +35,18 @@ public class QuizApp extends ActionBarActivity {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
+
         int id = item.getItemId();
+        switch
+                (item.getItemId())
+        {
+            case R.id.action_search:
+                    // Do  something, like starting an activity, for instance
+                return true;
+            case  R.id.action_scores:
+            // Do another thing
+                return true;
+        }
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {

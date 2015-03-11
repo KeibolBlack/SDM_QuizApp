@@ -6,5 +6,10 @@
     <string name="play">Play</string>
     <string name="scores">Scores</string>
     <string name="settings">Settings</string>
+    <string name="acBar_Title">QuizzApp</string>
+    <string name="acBar_Subtitle">Afronta tu ignorancia</string>
+    <string name="title_activity_quiz_app__ac_bar">QuizApp_AcBar</string>
+
+    <string name="hello_world">Hello world!</string>
 
 </resources>
