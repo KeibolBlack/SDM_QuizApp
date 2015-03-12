@@ -23,5 +23,14 @@
     <string name="credits_calico">Calico Lubrico</string>
     <string name="play_for">Juega por:</string>
     <string name="question_number">Pregunta</string>
+    <string name="settings_label_player_name">Nombre :</string>
+    <string name="settings_hint_player_name">Nombre del Jugador</string>
+    <string name="settings_player_name">Nombre del Jugador</string>
+    <string name="settings_label_help_number">Numero de ayudas :</string>
+    <string name="settings_hint_help_number">Numero de ayudas</string>
+    <string name="settings_default_help_number">3</string>
+    <string name="settings_label_add_friend">Añadir Amigo</string>
+    <string name="settings_button_add_friend">+</string>
+    <string name="settings_hint_friend_name">Nombre tu Amigo</string>
 
 </resources>
