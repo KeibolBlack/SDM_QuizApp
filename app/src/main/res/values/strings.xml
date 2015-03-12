@@ -21,5 +21,7 @@
     <string name="title_activity_credits">CreditsActivity</string>
 
     <string name="credits_calico">Calico Lubrico</string>
+    <string name="play_for">Juega por:</string>
+    <string name="question_number">Pregunta</string>
 
 </resources>
