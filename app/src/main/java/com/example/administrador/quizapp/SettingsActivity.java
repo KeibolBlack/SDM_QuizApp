@@ -6,7 +6,18 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
+import android.widget.ArrayAdapter;
+import android.widget.TextView;
+
+import java.io.IOException;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Iterator;
 
 
 public class SettingsActivity extends ActionBarActivity {
@@ -48,6 +59,25 @@ public class SettingsActivity extends ActionBarActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+    public void saveState(View view) {
+        SharedPreferences _prefs = getSharedPreferences("MisPreferencias", Activity.MODE_PRIVATE);
+        SharedPreferences.Editor _prefsEditor = _prefs.edit();
+
+        EditText addFriend = (EditText) findViewById(R.id.PlayerFriendName);
+        String prefFriends = _prefs.getString("FriendsList", null);
+        if (prefFriends==null) prefFriends = addFriend.getText().toString();
+        else prefFriends += "\n " + addFriend.getText().toString();
+
+        _prefsEditor.putString("FriendsList", prefFriends);
+
+        _prefsEditor.commit();
+
+        addFriend.setText("", null);
+
+        ((TextView) findViewById(R.id.textViewFriends)).setText(_prefs.getString("FriendsList",null));
+    }
+
     public void saveState() {
         SharedPreferences _prefs = getSharedPreferences("MisPreferencias", Activity.MODE_PRIVATE);
 
@@ -55,9 +85,8 @@ public class SettingsActivity extends ActionBarActivity {
         SharedPreferences.Editor _prefsEditor = _prefs.edit();
         if(_prefsEditor==null) return;
 
-        _prefsEditor.putString("NombreJugador", ((EditText) findViewById(R.id.NombreJugador)).getText().toString());
-        _prefsEditor.putString("NumeroOportunidades", ((EditText) findViewById(R.id.NumeroOportunidades)).getText().toString());
-        _prefsEditor.putString("NombreJugadorAmigo", ((EditText) findViewById(R.id.NombreJugadorAmigo)).getText().toString());
+        _prefsEditor.putString("playerName", ((EditText) findViewById(R.id.PlayerName)).getText().toString());
+        _prefsEditor.putString("chanceNumber", ((EditText) findViewById(R.id.ChancesNumber)).getText().toString());
 
         _prefsEditor.commit();
     }
@@ -66,8 +95,8 @@ public class SettingsActivity extends ActionBarActivity {
         SharedPreferences _prefs = getSharedPreferences("MisPreferencias", MODE_PRIVATE);
         if (_prefs==null) return;
 
-        ((EditText) findViewById(R.id.NombreJugador)).setText(_prefs.getString("NombreJugador","Empty"));
-        ((EditText) findViewById(R.id.NumeroOportunidades)).setText(_prefs.getString("NumeroOportunidades","Empty"));
-        ((EditText) findViewById(R.id.NombreJugadorAmigo)).setText(_prefs.getString("NombreJugadorAmigo","Empty"));
+        ((EditText) findViewById(R.id.PlayerName)).setText(_prefs.getString("playerName", null));
+        ((EditText) findViewById(R.id.ChancesNumber)).setText(_prefs.getString("chanceNumber","3"));
+        ((TextView) findViewById(R.id.textViewFriends)).setText(_prefs.getString("FriendsList",null));
     }
 }
