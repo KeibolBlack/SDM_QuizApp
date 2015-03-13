@@ -65,9 +65,14 @@ public class SettingsActivity extends ActionBarActivity {
         SharedPreferences.Editor _prefsEditor = _prefs.edit();
 
         EditText addFriend = (EditText) findViewById(R.id.PlayerFriendName);
+        String addFriendText= addFriend.getText().toString();
+
+        if (addFriend == null || addFriendText.matches("")) return;
+
         String prefFriends = _prefs.getString("FriendsList", null);
-        if (prefFriends==null) prefFriends = addFriend.getText().toString();
-        else prefFriends += "\n " + addFriend.getText().toString();
+
+        if (prefFriends==null) prefFriends = addFriendText;
+        else prefFriends += "\n" + addFriendText;
 
         _prefsEditor.putString("FriendsList", prefFriends);
 
