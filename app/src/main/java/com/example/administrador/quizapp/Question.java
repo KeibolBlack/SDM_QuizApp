@@ -5,20 +5,17 @@ package com.example.administrador.quizapp;
  */
 public class Question {
 
-    String number = null;
-    String text = null;
-    String answer1 = null;
-    String answer2 = null;
-    String answer3 = null;
-    String answer4 = null;
-    String right = null;
-    String audience = null;
-    String phone = null;
-    String fifty1 = null;
-    String fifty2= null;
-
-    public Question() {
-    }
+    private String number = null;
+    private String text = null;
+    private String answer1 = null;
+    private String answer2 = null;
+    private String answer3 = null;
+    private String answer4 = null;
+    private String right = null;
+    private String audience = null;
+    private String phone = null;
+    private String fifty1 = null;
+    private String fifty2= null;
 
     public Question(String number, String text, String answer1, String answer2, String answer3, String answer4, String right, String audience, String phone, String fifty1, String fifty2) {
         this.number = number;
@@ -32,6 +29,20 @@ public class Question {
         this.phone = phone;
         this.fifty1 = fifty1;
         this.fifty2= fifty2;
+    }
+
+    public Question() {
+        number = null;
+        text = null;
+        answer1 = null;
+        answer2 = null;
+        answer3 = null;
+        answer4 = null;
+        right = null;
+        audience = null;
+        phone = null;
+        fifty1 = null;
+        fifty2= null;
     }
 
     public String getText() {

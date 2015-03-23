@@ -2,35 +2,41 @@
 <resources>
 
     <string name="app_name">QuizApp</string>
-    <string name="action_settings">Settings</string>
-    <string name="play">Play</string>
+    <string name="action_settings" translatable="false">Settings</string>
+    <string name="play" translatable="false">Play</string>
     <string name="scores">Scores</string>
     <string name="settings">Settings</string>
-    <string name="acBar_Title">QuizzApp</string>
-    <string name="acBar_Subtitle">Afronta tu ignorancia</string>
-    <string name="title_activity_quiz_app__ac_bar">QuizApp_AcBar</string>
+    <string name="acBar_Title" translatable="false">QuizzApp</string>
+    <string name="title_activity_quiz_app__ac_bar" translatable="false">QuizApp_AcBar</string>
 
-    <string name="hello_world">Hello world!</string>
-    <string name="action_call_title">Llamada</string>
-    <string name="action_50_title">50%</string>
-    <string name="action_people_title">Publico</string>
-    <string name="action_close_title">Cerrar</string>
-    <string name="action_delete_title">Borrar registros</string>
-    <string name="title_activity_scores">ScoresActivity</string>
-    <string name="title_activity_settings">SettingsActivity</string>
-    <string name="title_activity_credits">CreditsActivity</string>
+    <string name="hello_world" translatable="false">Hello world!</string>
+    <string name="action_call_title">Call</string>
+    <string name="action_50_title" translatable="false">50%</string>
+    <string name="action_close_title">Close</string>
+    <string name="action_delete_title">Records Erase</string>
+    <string name="title_activity_scores" translatable="false">ScoresActivity</string>
+    <string name="title_activity_settings" translatable="false">SettingsActivity</string>
+    <string name="title_activity_credits" translatable="false">CreditsActivity</string>
 
-    <string name="credits_calico">Calico Lubrico</string>
-    <string name="play_for">Juega por:</string>
-    <string name="question_number">Pregunta</string>
-    <string name="settings_label_player_name">Nombre :</string>
-    <string name="settings_hint_player_name">Nombre del Jugador</string>
-    <string name="settings_player_name">Nombre del Jugador</string>
-    <string name="settings_label_help_number">Numero de ayudas :</string>
-    <string name="settings_hint_help_number">Numero de ayudas</string>
-    <string name="settings_default_help_number">3</string>
-    <string name="settings_label_add_friend">Añadir Amigo</string>
-    <string name="settings_button_add_friend">+</string>
-    <string name="settings_hint_friend_name">Nombre tu Amigo</string>
+    <string name="credits_calico" translatable="false">Calico Lubrico</string>
+    <string name="play_for">Play for:</string>
+    <string name="question_number">Question</string>
+    <string name="settings_label_player_name">Name :</string>
+    <string name="settings_hint_player_name">Player\'s Name</string>
+    <string name="settings_player_name">Player\'s Name</string>
+    <string name="settings_label_help_number">Number of Lifelines:</string>
+    <string name="settings_hint_help_number">Number of Lifelines</string>
+    <string name="settings_default_help_number" translatable="false">3</string>
+    <string name="settings_label_add_friend">Add a Friend</string>
+    <string name="settings_button_add_friend" translatable="false">+</string>
+    <string name="settings_hint_friend_name">Friend´s Name</string>
+
+    <string name="questions_xml">res/xml/questions.xml</string>
+    <string name="acBar_Subtitle">Face your Ignorance</string>
+    <string name="action_people_title">Audience</string>
+    <string name="buton_answer_1">Answer Number 1</string>
+    <string name="buton_answer_2">Answer Number 2</string>
+    <string name="buton_answer_3">Answer Number 3</string>
+    <string name="buton_answer_4">Answer Number 4</string>
 
 </resources>
