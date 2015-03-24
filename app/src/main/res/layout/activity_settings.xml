@@ -45,8 +45,21 @@
             android:text="@string/settings_label_help_number"
             android:textSize="@dimen/abc_action_bar_title_text_size"
             android:textStyle="bold" />
-
-        <EditText
+        <Spinner
+            android:id="@+id/spinner_ChancesNumber"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:entries="@array/settings_help_number"
+            android:prompt="@string/settings_hint_help_number"
+            android:textSize="@dimen/abc_action_bar_title_text_size"
+            android:textStyle="normal"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:hint="@string/settings_hint_help_number"
+            android:layout_marginLeft="10dp"
+            android:autoText="false"
+            android:text="@string/settings_default_help_number"/>
+        <!--<EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/ChancesNumber"
@@ -57,7 +70,8 @@
             android:hint="@string/settings_hint_help_number"
             android:inputType="number"
             android:text="@string/settings_default_help_number"
-            android:layout_marginLeft="10dp" />
+            android:layout_marginLeft="10dp"
+            android:autoText="false" />-->
     </TableRow>
 
     <LinearLayout
@@ -103,7 +117,12 @@
         </LinearLayout>
     </LinearLayout>
 
-    <ScrollView
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/listViewFriends" />
+
+    <!--<ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#55ffffff"
@@ -115,10 +134,5 @@
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text=""
             android:id="@+id/textViewFriends" />
-
-        <!--<ListView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/listViewFriends" />-->
-    </ScrollView>
+    </ScrollView>-->
 </LinearLayout>

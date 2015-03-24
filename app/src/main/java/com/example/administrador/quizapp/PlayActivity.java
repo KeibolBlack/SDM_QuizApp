@@ -1,18 +1,11 @@
 package com.example.administrador.quizapp;
 
-import java.io.IOException;
-import java.io.StringReader;
-
-import org.xmlpull.v1.XmlPullParser;
-import org.xmlpull.v1.XmlPullParserException;
-import org.xmlpull.v1.XmlPullParserFactory;
-import android.content.res.XmlResourceParser;
-import android.content.Context;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.res.Resources;
+import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.Menu;
@@ -20,21 +13,15 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.content.Intent;
 
 import org.xmlpull.v1.XmlPullParser;
-import org.xmlpull.v1.XmlPullParserFactory;
+import org.xmlpull.v1.XmlPullParserException;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import static com.example.administrador.quizapp.R.layout.play_activity;
 import static com.example.administrador.quizapp.R.menu.play_menu;
-import static com.example.administrador.quizapp.R.xml.questions;
 
 
 /**
@@ -46,11 +33,9 @@ public class PlayActivity extends ActionBarActivity{
     private Question pregunta = null;
     private int numeroPregunta = 0;
     private int score = 0;
-
-    Button b1;
-    Button b2;
-    Button b3;
-    Button b4;
+    private  int hint;
+    private Button [] botonesRespuesta;
+    private Menu menu;
 
 
     @Override
@@ -59,64 +44,155 @@ public class PlayActivity extends ActionBarActivity{
         setContentView(play_activity);
         android.support.v7.app.ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
+        botonesRespuesta = new Button []{
+                (Button) findViewById(R.id.button_answer1),
+                (Button) findViewById(R.id.button_answer2),
+                (Button) findViewById(R.id.button_answer3),
+                (Button) findViewById(R.id.button_answer4)};
+
+
+        recoverState();
 
         try {
             leerXML();
         } catch (XmlPullParserException e) {
-            e.printStackTrace();
+            Log.d("[S1:A2]", "Excepcion \"XmlPullParserException\" al leer el archivo XML: " + e.toString());
         } catch (IOException e) {
-            Log.d("[S1:A2]", "Excepcion al leer el archivo XML: " + e.toString());
+            Log.d("[S1:A2]", "Excepcion \"IOException\" al leer el archivo XML: " + e.toString());
         }
         try {
             cargarPregunta(numeroPregunta);
         } catch (Exception e) {
                 Log.d("[S1:A2]", "Excepcion al ejecutar primer \"Cargar Pregunta\" " + numeroPregunta + ": " + e.toString());
         }
+    }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        saveState();
+    }
+    @Override
+    protected void onDestroy(){
+        super.onDestroy();
+
+        saveState();
+
+    }
+
+    private void ComprobarRespuesta (String respuesta){
+        if (respuesta.equals(listaPreguntas.get(numeroPregunta).getRight())) {
+            score = QuestionValue[numeroPregunta];
+            if (numeroPregunta == 15) {
+                new AlertDialog.Builder(this)
+                        .setTitle(getString(R.string.dialog_title_win))
+                        .setMessage(getString(R.string.dialog_message_win))
+                        .setPositiveButton(getString(R.string.dialog_button_win), new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                resetBotones();
+                                resetComodines();
+                                saveState();
+                                finish();
+                            }
+                        })
+                        .show();
+            } else {
+                try {
+                    cargarPregunta(++numeroPregunta);
+                    resetBotones();
+                } catch (Exception e) {
+                    Log.d("[S1:A2]", "Excepcion al ejecutar siguiente \"Cargar Pregunta\" " + numeroPregunta + ": " + e.toString());
+                }
+            }
+        }
+
+        else {
+            new AlertDialog.Builder(this)
+                    .setTitle(getString(R.string.dialog_title_wrong_answer))
+                    .setMessage(getString(R.string.dialog_message_wrong_answer))
+                    .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            numeroPregunta = 0;
+                            try {
+                                cargarPregunta(numeroPregunta);
+                                resetBotones();
+                                resetComodines();
+                                saveState();
+                            } catch (Exception e) {
+                                Log.d("[S1:A2]", "Excepcion al reiniciar \"Cargar Pregunta\" " + numeroPregunta + ": " + e.toString());
+                            }
+                        }
+                    })
+                    .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            resetComodines();
+                            saveState();
+                            finish();
+                        }
+                    })
+                    .setIcon(android.R.drawable.ic_dialog_alert)
+                    .show();
+        }
+    }
+
+    private void resetBotones() {
+        for (Button b : botonesRespuesta) {
+            b.setBackgroundColor(getResources().getColor(android.R.color.background_dark));
+        }
+    }
+
+    private void resetComodines(){
+        switch (hint) {
+            case 0:
+                menu.findItem(R.id.action_50).setEnabled(false);
+                menu.findItem(R.id.action_people).setEnabled(false);
+                menu.findItem(R.id.action_call).setEnabled(false);
+                menu.findItem(R.id.action_50).setVisible(false);
+                menu.findItem(R.id.action_people).setVisible(false);
+                menu.findItem(R.id.action_call).setVisible(false);
+                return;
+            case 1:
+                menu.findItem(R.id.action_50).setEnabled(true);
+                menu.findItem(R.id.action_people).setEnabled(false);
+                menu.findItem(R.id.action_call).setEnabled(false);
+                menu.findItem(R.id.action_50).setVisible(true);
+                menu.findItem(R.id.action_people).setVisible(false);
+                menu.findItem(R.id.action_call).setVisible(false);
+                return;
+            case 2:
+                menu.findItem(R.id.action_50).setEnabled(true);
+                menu.findItem(R.id.action_people).setEnabled(false);
+                menu.findItem(R.id.action_call).setEnabled(true);
+                menu.findItem(R.id.action_50).setVisible(true);
+                menu.findItem(R.id.action_people).setVisible(false);
+                menu.findItem(R.id.action_call).setVisible(true);
+                return;
+            case 3:
+                menu.findItem(R.id.action_50).setEnabled(true);
+                menu.findItem(R.id.action_people).setEnabled(true);
+                menu.findItem(R.id.action_call).setEnabled(true);
+                menu.findItem(R.id.action_50).setVisible(true);
+                menu.findItem(R.id.action_people).setVisible(true);
+                menu.findItem(R.id.action_call).setVisible(true);
+                return;
+        }
     }
 
     public void ComprobarRespuestas1 (View v) {
-        if ("1".equals(listaPreguntas.get(numeroPregunta).getRight())) {
-            score = QuestionValue[numeroPregunta];
-            try {
-                cargarPregunta(++numeroPregunta);
-            } catch (Exception e) {
-                Log.d("[S1:A2]", "Excepcion al ejecutar siguiente \"Cargar Pregunta\" " + numeroPregunta + ": " + e.toString());
-            }
-        } //else startActivity(new Intent(getParent(), QuizApp.class));
+        ComprobarRespuesta ("1");
     }
 
     public void ComprobarRespuestas2 (View v) {
-        if ("2".equals(listaPreguntas.get(numeroPregunta).getRight())) {
-            score = QuestionValue[numeroPregunta];
-            try {
-                cargarPregunta(++numeroPregunta);
-            } catch (Exception e) {
-                Log.d("[S1:A2]", "Excepcion al ejecutar siguiente \"Cargar Pregunta\" " + numeroPregunta + ": " + e.toString());
-            }
-        } //else startActivity(new Intent(getParent(), QuizApp.class));
+        ComprobarRespuesta ("2");
     }
 
     public void ComprobarRespuestas3 (View v) {
-        if ("3".equals(listaPreguntas.get(numeroPregunta).getRight())) {
-            score = QuestionValue[numeroPregunta];
-            try {
-                cargarPregunta(numeroPregunta++);
-            } catch (Exception e) {
-                Log.d("[S1:A2]", "Excepcion al ejecutar siguiente \"Cargar Pregunta\" " + numeroPregunta + ": " + e.toString());
-            }
-        } //else startActivity(new Intent(getParent(), QuizApp.class));
+        ComprobarRespuesta ("3");
     }
 
     public void ComprobarRespuestas4 (View v) {
-        if ("4".equals(listaPreguntas.get(numeroPregunta).getRight())) {
-            score = QuestionValue[numeroPregunta];
-            try {
-                cargarPregunta(++numeroPregunta);
-            } catch (Exception e) {
-                Log.d("[S1:A2]", "Excepcion al ejecutar siguiente \"Cargar Pregunta\" " + numeroPregunta + ": " + e.toString());
-            }
-        } //else startActivity(new Intent(getParent(), QuizApp.class));
+        ComprobarRespuesta ("4");
     }
 
     private void cargarPregunta(int numeroPregunta) throws Exception {
@@ -135,10 +211,6 @@ public class PlayActivity extends ActionBarActivity{
             throws XmlPullParserException, IOException
     {
         XmlPullParser _parser = getResources().getXml(R.xml.questions);
-
-        String prueba = _parser.getAttributeValue(null, "number");
-
-        //_parser.next();
 
         while (_parser.getEventType() != XmlPullParser.END_DOCUMENT){
             if (_parser.getEventType() == XmlPullParser.START_TAG && _parser.getName().equals("question")){
@@ -166,14 +238,24 @@ public class PlayActivity extends ActionBarActivity{
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(play_menu, menu);
-
-        //ActionBar actionBar = getSupportActionBar();
-        //actionBar.setDisplayHomeAsUpEnabled(true);
+        this.menu = menu;
+        if (numeroPregunta == 0){
+            resetComodines();
+            resetBotones();
+        }
+        else {
+            SharedPreferences _prefs = getSharedPreferences("Preferencias", MODE_PRIVATE);
+            if (_prefs==null) return super.onCreateOptionsMenu(menu);
+            menu.findItem(R.id.action_50).setEnabled(_prefs.getBoolean("hint_50", true));
+            menu.findItem(R.id.action_people).setEnabled(_prefs.getBoolean("hint_audience", true));
+            menu.findItem(R.id.action_call).setEnabled(_prefs.getBoolean("hint_phone", true));
+            menu.findItem(R.id.action_50).setVisible(_prefs.getBoolean("hint_50", true));
+            menu.findItem(R.id.action_people).setVisible(_prefs.getBoolean("hint_audience", true));
+            menu.findItem(R.id.action_call).setVisible(_prefs.getBoolean("hint_phone", true));
+        }
 
         return super.onCreateOptionsMenu(menu);
     }
-
-
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -186,23 +268,56 @@ public class PlayActivity extends ActionBarActivity{
         //noinspection SimplifiableIfStatement
         switch  (id)
         {
-            case R.id.button_answer1: ans = 1;
-                break;
-            case R.id.button_answer2: ans = 2;
-                break;
-            case R.id.button_answer3: ans = 3;
-                break;
-            case R.id.button_answer4: ans = 4;
-                break;
-        }
-        if (ans == Integer.getInteger(listaPreguntas.get(numeroPregunta).getRight(), 0)){
-            score = QuestionValue[numeroPregunta];
-            try {
-                cargarPregunta(numeroPregunta++);
-            } catch (Exception e) {
-                Log.d("[S1:A2]", "Excepcion al ejecutar siguiente \"Cargar Pregunta\" " + numeroPregunta + ": " + e.toString());            }
+            case R.id.action_settings:
+                startActivity(new Intent(this, SettingsActivity.class));
+                return true;
+            case R.id.action_50:
+                botonesRespuesta[Integer.parseInt(pregunta.getFifty1())-1].setActivated(false);
+                botonesRespuesta[Integer.parseInt(pregunta.getFifty2())-1].setActivated(false);
+                botonesRespuesta[Integer.parseInt(pregunta.getFifty1())-1].setBackgroundColor(getResources().getColor(android.R.color.background_light));
+                botonesRespuesta[Integer.parseInt(pregunta.getFifty2())-1].setBackgroundColor(getResources().getColor(android.R.color.background_light));
+                menu.findItem(R.id.action_50).setEnabled(false);
+                menu.findItem(R.id.action_50).setVisible(false);
+                return true;
+            case R.id.action_people:
+                botonesRespuesta[Integer.parseInt(pregunta.getAudience())-1].setBackgroundColor(getResources().getColor(android.R.color.holo_orange_dark));
+                menu.findItem(R.id.action_people).setEnabled(false);
+                menu.findItem(R.id.action_people).setVisible(false);
+                return true;
+            case R.id.action_call:
+                botonesRespuesta[Integer.parseInt(pregunta.getPhone())-1].setBackgroundColor(getResources().getColor(android.R.color.holo_green_dark));
+                menu.findItem(R.id.action_call).setEnabled(false);
+                menu.findItem(R.id.action_call).setVisible(false);
+                return true;
+            case R.id.action_close:
+                numeroPregunta = 0;
+                finish();
+                return true;
         }
 
+
         return super.onOptionsItemSelected(item);
+    }
+
+    public void saveState() {
+        SharedPreferences _prefs = getSharedPreferences("Preferencias", Activity.MODE_PRIVATE);
+
+        if (_prefs==null) return;
+        SharedPreferences.Editor _prefsEditor = _prefs.edit();
+        if(_prefsEditor==null) return;
+
+        _prefsEditor.putString("numero_pregunta_actual", String.valueOf(numeroPregunta));
+        _prefsEditor.putBoolean("hint_50", menu.findItem(R.id.action_50).isEnabled());
+        _prefsEditor.putBoolean("hint_audience", menu.findItem(R.id.action_people).isEnabled());
+        _prefsEditor.putBoolean("hint_phone", menu.findItem(R.id.action_call).isEnabled());
+
+        _prefsEditor.commit();
+    }
+
+    private void recoverState(){
+        SharedPreferences _prefs = getSharedPreferences("Preferencias", MODE_PRIVATE);
+        if (_prefs==null) return;
+        hint = (Integer.parseInt(_prefs.getString("spinner_ChancesNumber", "3")));
+        numeroPregunta = (Integer.parseInt(_prefs.getString("numero_pregunta_actual", "0")));
     }
 }

@@ -4,14 +4,24 @@ import android.app.Activity;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
-import android.widget.TextView;
+import android.widget.ListView;
+import android.widget.Spinner;
+
+import java.util.ArrayList;
+import java.util.Arrays;
 
 
 public class SettingsActivity extends ActionBarActivity {
+
+    String [] friendArray;
+    //ArrayList friendArrayList = new ArrayList<String>(Arrays.asList(friendArray));
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,47 +62,53 @@ public class SettingsActivity extends ActionBarActivity {
     }
 
     public void saveState(View view) {
-        SharedPreferences _prefs = getSharedPreferences("MisPreferencias", Activity.MODE_PRIVATE);
+        SharedPreferences _prefs = getSharedPreferences("Preferencias", Activity.MODE_PRIVATE);
         SharedPreferences.Editor _prefsEditor = _prefs.edit();
 
         EditText addFriend = (EditText) findViewById(R.id.PlayerFriendName);
         String addFriendText= addFriend.getText().toString();
 
-        if (addFriend == null || addFriendText.matches("")) return;
+        if (TextUtils.isEmpty(addFriend.getText())) return;
 
         String prefFriends = _prefs.getString("FriendsList", null);
 
         if (prefFriends==null) prefFriends = addFriendText;
-        else prefFriends += "\n" + addFriendText;
+        else prefFriends += "," + addFriendText;
 
         _prefsEditor.putString("FriendsList", prefFriends);
 
         _prefsEditor.commit();
 
         addFriend.setText("", null);
-
-        ((TextView) findViewById(R.id.textViewFriends)).setText(_prefs.getString("FriendsList",null));
+        recoverState();
     }
 
     public void saveState() {
-        SharedPreferences _prefs = getSharedPreferences("MisPreferencias", Activity.MODE_PRIVATE);
+        SharedPreferences _prefs = getSharedPreferences("Preferencias", Activity.MODE_PRIVATE);
 
         if (_prefs==null) return;
         SharedPreferences.Editor _prefsEditor = _prefs.edit();
         if(_prefsEditor==null) return;
 
         _prefsEditor.putString("playerName", ((EditText) findViewById(R.id.PlayerName)).getText().toString());
-        _prefsEditor.putString("chanceNumber", ((EditText) findViewById(R.id.ChancesNumber)).getText().toString());
+        _prefsEditor.putString("spinner_ChancesNumber", ((Spinner) findViewById(R.id.spinner_ChancesNumber)).getSelectedItem().toString());
+        Log.d("[S1:A2]", "Excepcion al convertir \"spinner_ChancesNumber\" " + ((Spinner) findViewById(R.id.spinner_ChancesNumber)).getSelectedItem().toString());
 
         _prefsEditor.commit();
     }
 
     private void recoverState(){
-        SharedPreferences _prefs = getSharedPreferences("MisPreferencias", MODE_PRIVATE);
+        SharedPreferences _prefs = getSharedPreferences("Preferencias", MODE_PRIVATE);
         if (_prefs==null) return;
 
         ((EditText) findViewById(R.id.PlayerName)).setText(_prefs.getString("playerName", null));
-        ((EditText) findViewById(R.id.ChancesNumber)).setText(_prefs.getString("chanceNumber","3"));
-        ((TextView) findViewById(R.id.textViewFriends)).setText(_prefs.getString("FriendsList",null));
+        ((Spinner) findViewById(R.id.spinner_ChancesNumber)).setSelection(Integer.parseInt(_prefs.getString("spinner_ChancesNumber", "3")));
+        if (_prefs.getString("FriendsList", null) == null)return;
+        friendArray = _prefs.getString("FriendsList", null).split(",");
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(
+                this,
+                android.R.layout.simple_list_item_1,
+                friendArray );
+        ((ListView) findViewById(R.id.listViewFriends)).setAdapter(arrayAdapter);
     }
 }

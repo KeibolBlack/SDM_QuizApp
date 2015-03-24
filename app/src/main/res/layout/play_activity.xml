@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/point_interrogation_rouages">
 
     <LinearLayout
         android:orientation="horizontal"
@@ -75,7 +76,7 @@
             android:text="ESTA ES LA RESPUESTA 1"
             android:id="@+id/answer1"
             android:layout_gravity="center_horizontal"
-            android:background="@android:color/holo_red_light"
+            android:background="@android:color/holo_red_dark"
             android:textColor="@android:color/white"
             android:textAlignment="center"
             android:textStyle="bold|italic" />
@@ -88,7 +89,10 @@
             android:layout_gravity="center_horizontal"
             android:textAlignment="center"
             android:textStyle="bold"
-            android:onClick="ComprobarRespuestas1" />
+            android:onClick="ComprobarRespuestas1"
+            android:background="@android:color/background_dark"
+            android:textColor="@android:color/background_light"
+            android:alpha="0.8" />
     </LinearLayout>
 
     <LinearLayout
@@ -108,7 +112,7 @@
             android:text="ESTA ES LA RESPUESTA 2"
             android:id="@+id/answer2"
             android:layout_gravity="center_horizontal"
-            android:background="@android:color/holo_red_light"
+            android:background="@android:color/holo_red_dark"
             android:textColor="@android:color/white"
             android:textAlignment="center"
             android:textStyle="bold|italic" />
@@ -121,7 +125,10 @@
             android:layout_gravity="center_horizontal"
             android:textAlignment="center"
             android:textStyle="bold"
-            android:onClick="ComprobarRespuestas2" />
+            android:onClick="ComprobarRespuestas2"
+            android:background="@android:color/background_dark"
+            android:textColor="@android:color/background_light"
+            android:alpha="0.8" />
     </LinearLayout>
 
     <LinearLayout
@@ -141,7 +148,7 @@
             android:text="ESTA ES LA RESPUESTA 3"
             android:id="@+id/answer3"
             android:layout_gravity="center_horizontal"
-            android:background="@android:color/holo_red_light"
+            android:background="@android:color/holo_red_dark"
             android:textColor="@android:color/white"
             android:textAlignment="center"
             android:textStyle="bold|italic" />
@@ -154,7 +161,10 @@
             android:layout_gravity="center_horizontal"
             android:textAlignment="center"
             android:textStyle="bold"
-            android:onClick="ComprobarRespuestas3" />
+            android:onClick="ComprobarRespuestas3"
+            android:background="@android:color/background_dark"
+            android:textColor="@android:color/background_light"
+            android:alpha="0.8" />
     </LinearLayout>
 
     <LinearLayout
@@ -174,7 +184,7 @@
             android:text="ESTA ES LA RESPUESTA 4"
             android:id="@+id/answer4"
             android:layout_gravity="center_horizontal"
-            android:background="@android:color/holo_red_light"
+            android:background="@android:color/holo_red_dark"
             android:textColor="@android:color/white"
             android:textAlignment="center"
             android:textStyle="bold|italic" />
@@ -187,7 +197,10 @@
             android:layout_gravity="center_horizontal"
             android:textAlignment="center"
             android:textStyle="bold"
-            android:onClick="ComprobarRespuestas4" />
+            android:onClick="ComprobarRespuestas4"
+            android:background="@android:color/background_dark"
+            android:textColor="@android:color/background_light"
+            android:alpha="0.8" />
     </LinearLayout>
 
 </LinearLayout>

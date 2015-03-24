@@ -23,4 +23,9 @@
     <string name="buton_answer_2">Respuesta Numero 2</string>
     <string name="buton_answer_3">Respuesta Numero 3</string>
     <string name="buton_answer_4">Respuesta Numero 4</string>
+    <string name="dialog_message_wrong_answer">¡¡Que verguenza!!\nQuieres probar de nuevo?</string>
+    <string name="dialog_title_wrong_answer">Respuesta incorrecta!!</string>
+    <string name="dialog_title_win">¡¡Felicidades Has Ganado!!</string>
+    <string name="dialog_message_win">Parece que eres mas listo de lo que aparentabas</string>
+    <string name="dialog_button_win">Volver</string>
 </resources>

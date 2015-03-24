@@ -38,5 +38,17 @@
     <string name="buton_answer_2">Answer Number 2</string>
     <string name="buton_answer_3">Answer Number 3</string>
     <string name="buton_answer_4">Answer Number 4</string>
+    <string name="dialog_message_wrong_answer">Shame On You!!\nDo you want to try again?</string>
+    <string name="dialog_title_wrong_answer">Wrong Answer!!</string>
+    <string name="dialog_title_win">Congratulations You Win!!</string>
+    <string name="dialog_message_win">It seems that you are smarter than you look</string>
+    <string name="dialog_button_win">Back</string>
+
+    <string-array name="settings_help_number" translatable="false">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+    </string-array>
 
 </resources>
