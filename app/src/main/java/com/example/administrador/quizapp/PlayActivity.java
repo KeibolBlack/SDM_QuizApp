@@ -5,6 +5,9 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteException;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
@@ -28,7 +31,7 @@ import static com.example.administrador.quizapp.R.menu.play_menu;
  * Created by AlbertoCR on 11/03/2015.
  */
 public class PlayActivity extends ActionBarActivity{
-    private final int QuestionValue [] = {100,200,300,500,1000,2000,4000,8000,16000,32000,64000,125000,250000,500000,1000000};
+    private final int questionValue[] = {100,200,300,500,1000,2000,4000,8000,16000,32000,64000,125000,250000,500000,1000000};
     private ArrayList<Question> listaPreguntas = new ArrayList<Question>();
     private Question pregunta = null;
     private int numeroPregunta = 0;
@@ -36,6 +39,8 @@ public class PlayActivity extends ActionBarActivity{
     private  int hint;
     private Button [] botonesRespuesta;
     private Menu menu;
+    private SQLiteDatabase sc;
+    private String nombreJugador;
 
 
     @Override
@@ -44,6 +49,28 @@ public class PlayActivity extends ActionBarActivity{
         setContentView(play_activity);
         android.support.v7.app.ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
+        sc = this.openOrCreateDatabase("scores", MODE_PRIVATE, null);
+        sc.beginTransaction();
+        try {
+            sc.execSQL("create table scores ("
+                    + "id integer PRIMARY KEY autoincrement,"
+                    + "name text,"
+                    + "score text)");
+            sc.setTransactionSuccessful();
+        } catch (SQLiteException e) {
+            Log.d("[S1:A2]", "Excepcion \"SQLiteException\" al crear la tabla scores en Play activity: " + e.toString());
+        } finally {
+            sc.endTransaction();
+        }
+
+        Cursor qr = sc.rawQuery("select count(*) from sqlite_master where type = 'table'", null);
+        if (qr.getCount()==0) {
+            sc.execSQL("create table scores ("
+            + "id integer PRYMARY KEY autoincrement,"
+            + "name text,"
+            + "score text)");
+
+        }
         botonesRespuesta = new Button []{
                 (Button) findViewById(R.id.button_answer1),
                 (Button) findViewById(R.id.button_answer2),
@@ -83,8 +110,9 @@ public class PlayActivity extends ActionBarActivity{
 
     private void ComprobarRespuesta (String respuesta){
         if (respuesta.equals(listaPreguntas.get(numeroPregunta).getRight())) {
-            score = QuestionValue[numeroPregunta];
+            score = questionValue[numeroPregunta];
             if (numeroPregunta == 15) {
+                GuardarPuntuacion();
                 new AlertDialog.Builder(this)
                         .setTitle(getString(R.string.dialog_title_win))
                         .setMessage(getString(R.string.dialog_message_win))
@@ -113,15 +141,16 @@ public class PlayActivity extends ActionBarActivity{
                     .setMessage(getString(R.string.dialog_message_wrong_answer))
                     .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
+                            GuardarPuntuacion();
                             numeroPregunta = 0;
                             try {
                                 cargarPregunta(numeroPregunta);
-                                resetBotones();
-                                resetComodines();
-                                saveState();
                             } catch (Exception e) {
                                 Log.d("[S1:A2]", "Excepcion al reiniciar \"Cargar Pregunta\" " + numeroPregunta + ": " + e.toString());
                             }
+                            resetBotones();
+                            resetComodines();
+                            saveState();
                         }
                     })
                     .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
@@ -133,6 +162,21 @@ public class PlayActivity extends ActionBarActivity{
                     })
                     .setIcon(android.R.drawable.ic_dialog_alert)
                     .show();
+        }
+    }
+
+    private void GuardarPuntuacion() {
+        score = questionValue[numeroPregunta];
+        sc.beginTransaction();
+        try {
+            sc.execSQL("insert into scores"
+                    + "(name, score)"
+                    + "values ('" + nombreJugador + "', '" + score + "')");
+            sc.setTransactionSuccessful();
+        } catch (SQLiteException e) {
+            Log.d("[S1:A2]", "Excepcion \"SQLiteException\" al crear la tabla scores en Play activity: " + e.toString());
+        } finally {
+            sc.endTransaction();
         }
     }
 
@@ -199,7 +243,7 @@ public class PlayActivity extends ActionBarActivity{
         pregunta = listaPreguntas.get(numeroPregunta);
 
         ((TextView)findViewById(R.id.question_number_edit)).setText(String.valueOf(numeroPregunta+1));
-        ((TextView)findViewById(R.id.play_for_edit)).setText(String.valueOf(QuestionValue[numeroPregunta]));
+        ((TextView)findViewById(R.id.play_for_edit)).setText(String.valueOf(questionValue[numeroPregunta]));
         ((TextView)findViewById(R.id.question)).setText(pregunta.getText());
         ((TextView)findViewById(R.id.answer1)).setText(pregunta.getAnswer1());
         ((TextView)findViewById(R.id.answer2)).setText(pregunta.getAnswer2());
@@ -232,7 +276,6 @@ public class PlayActivity extends ActionBarActivity{
             _parser.next();
         }
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -290,6 +333,7 @@ public class PlayActivity extends ActionBarActivity{
                 menu.findItem(R.id.action_call).setVisible(false);
                 return true;
             case R.id.action_close:
+                GuardarPuntuacion();
                 numeroPregunta = 0;
                 finish();
                 return true;
@@ -319,5 +363,6 @@ public class PlayActivity extends ActionBarActivity{
         if (_prefs==null) return;
         hint = (Integer.parseInt(_prefs.getString("spinner_ChancesNumber", "3")));
         numeroPregunta = (Integer.parseInt(_prefs.getString("numero_pregunta_actual", "0")));
+        nombreJugador = (_prefs.getString("playerName", null));
     }
 }

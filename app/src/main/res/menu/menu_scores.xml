@@ -3,6 +3,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.example.administrador.quizapp.ScoresActivity">
 
+    <item android:id="@+id/action_credits"
+        android:icon="@drawable/ic_action_about"
+        android:title="@string/ac_item_credits"
+        android:orderInCategory="100"
+        app:showAsAction="always" />
     <item android:id="@+id/action_settings"
         android:icon="@drawable/ic_action_settings"
         android:title="@string/action_settings"

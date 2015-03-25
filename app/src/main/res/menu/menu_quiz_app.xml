@@ -4,7 +4,7 @@
 
     <item android:id="@+id/action_credits"
         android:icon="@drawable/ic_action_about"
-        android:title="@string/play"
+        android:title="@string/ac_item_credits"
         android:orderInCategory="100"
         app:showAsAction="always" />
     <item android:id="@+id/action_settings"

@@ -14,14 +14,10 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-
 
 public class SettingsActivity extends ActionBarActivity {
 
-    String [] friendArray;
-    //ArrayList friendArrayList = new ArrayList<String>(Arrays.asList(friendArray));
+    private String [] friendArray;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

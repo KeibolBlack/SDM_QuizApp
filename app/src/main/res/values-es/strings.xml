@@ -28,4 +28,5 @@
     <string name="dialog_title_win">¡¡Felicidades Has Ganado!!</string>
     <string name="dialog_message_win">Parece que eres mas listo de lo que aparentabas</string>
     <string name="dialog_button_win">Volver</string>
+    <string name="ac_item_credits">Creditos</string>
 </resources>

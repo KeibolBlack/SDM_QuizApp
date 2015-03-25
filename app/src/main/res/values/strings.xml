@@ -43,6 +43,7 @@
     <string name="dialog_title_win">Congratulations You Win!!</string>
     <string name="dialog_message_win">It seems that you are smarter than you look</string>
     <string name="dialog_button_win">Back</string>
+    <string name="ac_item_credits">Credits</string>
 
     <string-array name="settings_help_number" translatable="false">
         <item>0</item>
