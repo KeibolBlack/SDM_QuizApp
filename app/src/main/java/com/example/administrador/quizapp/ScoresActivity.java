@@ -63,19 +63,36 @@ public class ScoresActivity extends ActionBarActivity {
             int name = scores.getColumnIndex("name");
             int score = scores.getColumnIndex("score");
             while (scores.moveToNext()){
-                TextView textName = new TextView(this, null);
                 TableRow tableScore = new TableRow(this, null);
-                textName.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.MATCH_PARENT));
-                tableScore.addView(textName);
-                TextView textScore = new TextView(this, null);
-                textScore.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.MATCH_PARENT));
-                tableScore.addView(textScore);
+                /*tableScore.setLayoutParams(new TableRow.LayoutParams(
+                        TableRow.LayoutParams.WRAP_CONTENT,
+                        TableRow.LayoutParams.MATCH_PARENT
+                ));*/
+                LinearLayout lnScore =new LinearLayout(this, null);
+                /*lnScore.setLayoutParams(new LinearLayout.LayoutParams(
+                        LinearLayout.LayoutParams.WRAP_CONTENT,
+                        LinearLayout.LayoutParams.MATCH_PARENT
+                ));*/
+                tableScore.addView(lnScore);
+                TextView textName = new TextView(this, null);
+
+                /*textName.setLayoutParams(new ViewGroup.LayoutParams(
+                        ViewGroup.LayoutParams.MATCH_PARENT,
+                        ViewGroup.LayoutParams.WRAP_CONTENT
+                ));*/
+                lnScore.addView(textName);
+                //TextView textScore = new TextView(this, null);
+                /*textScore.setLayoutParams(new ViewGroup.LayoutParams(
+                        ViewGroup.LayoutParams.MATCH_PARENT,
+                        ViewGroup.LayoutParams.WRAP_CONTENT
+                ));*/
+                //lnScore.addView(textScore);
                 ((LinearLayout) findViewById(R.id.llScores)).addView(tableScore);
-                textName.setText(scores.getString(name));
+                textName.setText(scores.getString(name) + ": " + scores.getString(score));
                 textName.setTextColor(getResources().getColor(android.R.color.holo_red_dark));
                 textName.setGravity(1);
-                textScore.setText(scores.getString(score));
-                textScore.setGravity(1);
+                //textScore.setText(scores.getString(score));
+                //textScore.setGravity(1);
                 /*namesScores[0] = scores.getString(name);
                 namesScores[1] = scores.getString(score);
                 myScores.add (namesScores);*/

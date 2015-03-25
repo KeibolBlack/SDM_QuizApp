@@ -76,7 +76,6 @@ public class SettingsActivity extends ActionBarActivity {
         _prefsEditor.commit();
 
         addFriend.setText("", null);
-        recoverState();
     }
 
     public void saveState() {

@@ -5,7 +5,7 @@
     <string name="play_for" translatable="false">Juega por:</string>
     <string name="question_number" translatable="false">Pregunta</string>
     <string name="questions_xml" translatable="true">res/xml/questions_es.xml</string>
-    <string name="scores" translatable="false">Marcadores</string>
+    <string name="scores" translatable="false">Puntos</string>
     <string name="settings" translatable="false">Configuracion</string>
     <string name="settings_hint_friend_name" translatable="false">Nombre tu Amigo</string>
     <string name="settings_hint_help_number" translatable="false">Numero de Ayudas</string>

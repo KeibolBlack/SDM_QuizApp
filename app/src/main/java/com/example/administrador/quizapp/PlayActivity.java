@@ -155,6 +155,8 @@ public class PlayActivity extends ActionBarActivity{
                     })
                     .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
+                            GuardarPuntuacion();
+                            numeroPregunta = 0;
                             resetComodines();
                             saveState();
                             finish();
